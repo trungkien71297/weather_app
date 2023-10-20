@@ -42,13 +42,11 @@ class HomeContronller extends GetxController {
   getWeather(Location lct) async {
     lastLocation = lct;
     var res = await getIt<Api>().getCurrentWeather(lct);
-    return res.fold(
-        (l) {
-          if(!Get.isSnackbarOpen) {
-            Get.snackbar("Error", l.toString(), backgroundColor: Colors.red)
-          }
-        },
-        (r) {
+    return res.fold((l) {
+      if (!Get.isSnackbarOpen) {
+        Get.snackbar("Error", l.toString(), backgroundColor: Colors.red);
+      }
+    }, (r) {
       if (r.location != null && r.current != null) {
         location.value = r.location!;
         weather.value = r.current!;

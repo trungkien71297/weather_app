@@ -71,7 +71,8 @@ class HomePage extends StatelessWidget {
         textInputAction: TextInputAction.done,
         focusNode: focusNode,
         decoration: const InputDecoration(
-            labelText: "City name or zip code", border: OutlineInputBorder()),
+            labelText: "Enter City name or Zip code",
+            border: OutlineInputBorder()),
       ),
       displayStringForOption: (option) => option.name ?? "",
       textEditingController: controller.searchController,
@@ -127,8 +128,8 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildTemp(CurrentWeather weather) {
-    var c = weather.tempC != null ? weather.tempC!.round().toString() : "";
-    var f = weather.tempF != null ? weather.tempF!.round().toString() : "";
+    var c = weather.tempC != null ? weather.tempC!.round().toString() : "0";
+    var f = weather.tempF != null ? weather.tempF!.round().toString() : "0";
     return SizedBox(
       width: 100,
       height: 100,
@@ -177,7 +178,7 @@ class HomePage extends StatelessWidget {
                                 style: titleinfo,
                               ),
                               Text(
-                                  "${controller.isFahrenheit.value ? (weather.feelslikeF?.toString() ?? "") : (weather.feelslikeC?.toString()) ?? ""}º",
+                                  "${controller.isFahrenheit.value ? (weather.feelslikeF?.toString() ?? "0") : (weather.feelslikeC?.toString()) ?? "0"}º",
                                   style: infoStyle),
                             ],
                           ),
@@ -199,7 +200,7 @@ class HomePage extends StatelessWidget {
                                 style: titleinfo,
                               ),
                               Text(
-                                  "${controller.weather.value.humidity?.toString() ?? ""}%",
+                                  "${controller.weather.value.humidity?.toString() ?? "0"}%",
                                   style: infoStyle),
                             ],
                           ),
@@ -227,7 +228,8 @@ class HomePage extends StatelessWidget {
                                 style: titleinfo,
                               ),
                               Text(
-                                  controller.weather.value.uv?.toString() ?? "",
+                                  controller.weather.value.uv?.toString() ??
+                                      "0",
                                   style: infoStyle),
                             ],
                           ),
@@ -249,7 +251,7 @@ class HomePage extends StatelessWidget {
                                 style: titleinfo,
                               ),
                               Text(
-                                "${controller.weather.value.windKph?.toString() ?? ""}Km/h",
+                                "${controller.weather.value.windKph?.toString() ?? "0"} Km/h",
                                 style: infoStyle,
                               ),
                             ],

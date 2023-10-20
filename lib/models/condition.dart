@@ -7,6 +7,8 @@ class Condition {
 
   factory Condition.fromJson(Map<String, dynamic> json) {
     return Condition(
-        text: json['text'], icon: json['icon'], code: json['code']);
+        text: json['text'],
+        icon: (json['icon'] is int) ? "${json['icon']}" : json['icon'],
+        code: json['code']);
   }
 }

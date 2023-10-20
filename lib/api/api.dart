@@ -26,7 +26,7 @@ class Api extends BaseApi {
             CustomException(response.statusMessage ?? "Can not retrive data"));
       }
     } catch (e) {
-      return Left(CustomException("Unknown error, please try again"));
+      return Left(CustomException("Can not load data, please try later"));
     }
   }
 
@@ -34,10 +34,8 @@ class Api extends BaseApi {
       Location location) async {
     const url = "current.json";
     try {
-      Response response = await dio.get(url, queryParameters: {
-        "key": API_KEY,
-        "q": "${location.lat},${location.lon}"
-      });
+      Response response = await dio
+          .get(url, queryParameters: {"key": API_KEY, "q": location.url});
       if (response.statusCode == 200) {
         return Right(CurrentLocation.fromJson(response.data));
       } else {
@@ -45,7 +43,7 @@ class Api extends BaseApi {
             CustomException(response.statusMessage ?? "Can not retrive data"));
       }
     } catch (e) {
-      return Left(CustomException("Unknown error, please try again"));
+      return Left(CustomException("Can not load data, please try later"));
     }
   }
 }

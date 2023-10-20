@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_app/api/api.dart';
 import 'package:weather_app/di.dart';
 import 'package:weather_app/models/condition.dart' as wt_cond;
@@ -19,14 +20,16 @@ class HomeContronller extends GetxController {
   @override
   onInit() {
     super.onInit();
-    _loadConditions();
+    _preLoad();
   }
 
-  _loadConditions() async {
+  _preLoad() async {
     final res = await rootBundle.loadString('assets/weather_conditions.json');
     final data = await json.decode(res);
     conditions =
         (data as List).map((e) => wt_cond.Condition.fromJson(e)).toList();
+    final prefs = await SharedPreferences.getInstance();
+    isFahrenheit.value = prefs.getBool("isFahrenheit") == true;
   }
 
   Future<List<Location>> search(String query) async {
@@ -58,5 +61,11 @@ class HomeContronller extends GetxController {
     if (lastLocation != null) {
       await getWeather(lastLocation!);
     }
+  }
+
+  changeTemp(bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    isFahrenheit.value = value;
+    prefs.setBool("isFahrenheit", value);
   }
 }

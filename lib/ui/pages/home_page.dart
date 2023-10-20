@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
             Obx(() => Switch(
                 value: controller.isFahrenheit.value,
                 onChanged: (bool value) {
-                  controller.isFahrenheit.value = value;
+                  controller.changeTemp(value);
                 })),
             const Text("ºF")
           ],
